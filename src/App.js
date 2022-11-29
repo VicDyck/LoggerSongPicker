@@ -53,7 +53,7 @@ export default function App() {
     <div className="App">
       <h1>Logger Song Picker</h1>
       <Songs
-        song={num} // pass in attribute numbers from App state
+        songs={song} // pass in attribute numbers from App state
         onClick={rollDice} // pass down click function
       />
     </div>

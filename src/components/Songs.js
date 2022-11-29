@@ -35,8 +35,8 @@ const Songs = (props) => {
       </button>
       {Object.entries(songs).map(([key, values]) => {
         return (
-          <div className="song-group" key={key}>
-            <div className="song-name">
+          <div className="songs-group" key={key}>
+            <div className="songs-name">
               <button
                 className="button button--secondary"
                 id={`pick-${key}`}
