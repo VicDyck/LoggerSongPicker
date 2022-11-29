@@ -1,0 +1,17 @@
+.songs {
+  display: inline-flex;
+  flex-direction: column;
+}
+
+#roll-die {
+  margin-bottom: 5px;
+}
+
+.songs-group {
+  display: flex;
+  margin: 5px 0;
+}
+
+.songs-name button {
+  width: 25em;
+}

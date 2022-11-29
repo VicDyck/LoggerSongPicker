@@ -1,8 +1,8 @@
 import "./styles.css";
 import { useState } from "react";
-import { dataAttributes } from "./data/attributes";
+import { dataSongs } from "./data/songs";
 import { Dice } from "./components/diceBox";
-import Attributes from "./components/Attributes";
+import Songs from "./components/Songs";
 
 // initialize the Dice Box outside of the component
 Dice.init().then(() => {
@@ -16,29 +16,29 @@ Dice.init().then(() => {
 });
 
 export default function App() {
-  const [attr, setAttr] = useState(dataAttributes);
+  const [song, setSong] = useState(dataSongs);
   const [pendingRoll, setPendingRoll] = useState();
 
   // This method is triggered whenever dice are finished rolling
   Dice.onRollComplete = (results) => {
     console.log(results);
 
-    const newState = { ...attr };
+    const newState = { ...song };
 
     if (pendingRoll === "all") {
-      Object.keys(newState).forEach((attr, i) => {
-        newState[attr].total = results[i].value;
+      Object.keys(newState).forEach((song, i) => {
+        newState[song].played = results[i].value;
       });
     } else {
       newState[pendingRoll].total = results[0].value;
     }
-    setAttr(newState);
+    setSong(newState);
   };
 
   // update attribute from numerical input
-  const updateAttributes = (newState) => {
-    console.log("update the attributes");
-    setAttr(newState);
+  const updateSongs = (newState) => {
+    console.log("update the songs");
+    setSong(newState);
   };
 
   // trigger dice roll
@@ -51,11 +51,10 @@ export default function App() {
 
   return (
     <div className="App">
-      <h1>Dice Rolling Demo</h1>
-      <Attributes
-        attributes={attr} // pass in attribute numbers from App state
-        onRoll={rollDice} // pass down roll function
-        onChange={updateAttributes} // pass down onChange function
+      <h1>Logger Song Picker</h1>
+      <Songs
+        song={num} // pass in attribute numbers from App state
+        onClick={rollDice} // pass down click function
       />
     </div>
   );
