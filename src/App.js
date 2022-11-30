@@ -16,36 +16,24 @@ Dice.init().then(() => {
 });
 
 export default function App() {
-  const [song, setSong] = useState(dataSongs);
-  const [pendingRoll, setPendingRoll] = useState();
+  const [song, setPlayed] = useState(dataSongs);
 
   // This method is triggered whenever dice are finished rolling
   Dice.onRollComplete = (results) => {
     console.log(results);
-
     const newState = { ...song };
-
-    if (pendingRoll === "all") {
-      Object.keys(newState).forEach((song, i) => {
-        newState[song].played = results[i].value;
-      });
-    } else {
-      newState[pendingRoll].total = results[0].value;
-    }
-    setSong(newState);
+    newState[results[0].value].played = 1;
+    setPlayed(newState);
   };
 
   // update attribute from numerical input
-  const updateSongs = (newState) => {
-    console.log("update the songs");
-    setSong(newState);
+  const clickName = (newState) => {
+    console.log("update the attributes");
+    setPlayed(newState);
   };
 
   // trigger dice roll
-  const rollDice = (notation, group) => {
-    // save which attribute we're rolling for
-    setPendingRoll(group);
-    // trigger the dice roll
+  const rollDice = (notation) => {
     Dice.show().roll(notation);
   };
 
@@ -53,8 +41,9 @@ export default function App() {
     <div className="App">
       <h1>Logger Song Picker</h1>
       <Songs
-        songs={song} // pass in attribute numbers from App state
-        onClick={rollDice} // pass down click function
+        songs={song} // pass in songs from App state
+        onClick={clickName} // pass down click function
+        onRoll={rollDice} // pass down roll function
       />
     </div>
   );

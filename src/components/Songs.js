@@ -1,7 +1,7 @@
 import "./Songs.css";
 
 const Songs = (props) => {
-  const { onChange, songs, onRoll } = props;
+  const { songs } = props;
 
   // update attribute from numerical input
   const updateSong = (e) => {
@@ -10,7 +10,7 @@ const Songs = (props) => {
     if (val) {
       val = parseInt(val);
     }
-    const song = e.target.id.replace("song-", "");
+    const song = e.target.id.replace("pick-", "");
 
     const newState = { ...songs };
     newState[song].played = val;
@@ -20,7 +20,7 @@ const Songs = (props) => {
   // roll dice on button click
   const rollDice = (e) => {
     e.preventDefault();
-    onRoll("1d20", song);
+    onRoll("1d20");
   };
 
   return (
@@ -33,6 +33,7 @@ const Songs = (props) => {
       >
         Pick Song
       </button>
+      <br />
       {Object.entries(songs).map(([key, values]) => {
         return (
           <div className="songs-group" key={key}>
